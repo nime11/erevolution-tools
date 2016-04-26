@@ -22,17 +22,11 @@ list[i]=thisseznam;
 
 var tp= list[0];
 var ta= list[1];
+var htmlStringdiv = $(".vs164-11").html();
 
-<div  id="infCalc" class="vs165">
-<label>energy<input id="infCalc_energy" value="1" type="text"></input></label>
-<label>Damege Booster<select id="infCalc_booster">
-  <option value="1.1">1.1</option>
-  <ption value="1.2">1.2</option>
-  <option value="1.3">1.3</option>
-  <option value="1.4">1.4</option>
-  <option value="1.5">1.5</option>
-</select></label>
-<table>
-  <tbody>
-
-</div>
+$(document).ready(function(){
+      $(".vs164-11").load("https://raw.githubusercontent.com/nime11/erevolution-tools/master/infCalc.html");
+      body = document.getElementsByid('nalozi')[0];
+      body.appendChild(htmlStringdiv);
+    });
+});
