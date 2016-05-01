@@ -161,7 +161,8 @@ $('#oroz').on('change', function (e) {
     wep=this.value;
     hitwone=hit*wep;
     hitwone=Math.ceil(hitwone);
-    
+
+    wonenextta=resta/hitwone;
     wonenextta=Math.ceil(wonenextta);
     wonenexttp=restp/hitwone;
     wonenexttp=Math.ceil(wonenexttp);
