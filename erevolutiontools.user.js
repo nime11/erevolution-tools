@@ -8,6 +8,9 @@
 
 // @include       https://www.erevollution.com/*
 
+// @exclude     https://www.erevollution.com/en/special-items
+
+// ==/UserScript==
 var x = document.getElementsByClassName("vs164-2");
 var moc = x[0].innerHTML;
 var car="";
