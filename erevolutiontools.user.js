@@ -38,9 +38,18 @@ thisseznam= thisseznam.replace(/<[^>]*>/g, ''); // Remove HTML tags
 thisseznam = thisseznam.replace(/[[^]]*]/g, ''); // Remove anything within square brackets
 list[i]=thisseznam;
 }
+
 var wep=1;
 var tp= list[0];
+tp= tp.replace(/,/g,'')
+tp=tp.split("/")
+var restp=tp[1]-tp[0];
+
 var ta= list[1];
+ta=ta.replace(/,/g,'')
+ta=ta.split("/")
+var resta=ta[1]-ta[0];
+
 var lk=5;
 var ak=0.05;
 var l=level*lk+moc;
@@ -51,7 +60,13 @@ k=Math.ceil(k);
 var ene=1;
 var boos=1;
 var hit=k*ene*boos;
+var nextta=resta/hit;
+nextta=Math.ceil(nextta);
+var nexttp=restp/hit;
+nexttp=Math.ceil(nexttp);
 var hitwone=hit*wep;
+wonenextta=nextta;
+wonenexttp=nexttp;
 var htmlStringdiv = "<div id='vse'><br></br> <h3 style='margin-top: 15px;clear: both;'>"+
 "<span>Info Calc</span></h3>"+
 "<div id='infCalc' >"+
@@ -84,12 +99,12 @@ var htmlStringdiv = "<div id='vse'><br></br> <h3 style='margin-top: 15px;clear: 
     "<option value='5'>5</option>"+
   "</select>"+
 "<label >gold/peac<input id='infCalc_gold' value='0' type='text'></input></label>"+
-  "<table> "+
+  "<table border='1'> "+
     "<tbody>"+
       "<tr id=#infoCalctable>"+
-       "<td><b>Influence:   <br> Rank up:  <br> Next TP:  <br>  Cost g/m  </b> <td>"+
-        "<td><span id='udar'> <b>"+hit+"<br>  rank up  <br> tp <br> 0  </b> </span></td>"+
-        "<td><span id='udardve'><b>"+hitwone+"<br>  rank up <br> tp <br> cost g/m  </b> </span></td>"+
+       "<td><b>Influence:   <br> Next TA:  <br> Next TP:  <br>  Cost g/m  </b> <td>"+
+        "<td><span id='udar'> <b>"+hit+"<br> "+nextta+"<br> "+nexttp+" <br> 0  </b> </span></td>"+
+        "<td><span id='udardve'><b>"+hitwone+"<br>  "+nextta+" <br> "+nexttp+"  <br> cost g/m  </b> </span></td>"+
        "</tr>"+
     "</tdbody>"+
   "</table>"+
@@ -103,18 +118,42 @@ $("select").css("display","inline");
 $('#infCalc_energy').on('input',function(e){
     ene=$("#infCalc_energy").val();
     hit=k*ene*boos;
-    $('#udar').html('<b>'+hit+'<br>rank up<br> tp <br>cost g/e</b>');
+
+    nextta=resta/hit;
+    nextta=Math.ceil(nextta);
+    nexttp=restp/hit;
+    nexttp=Math.ceil(nexttp);
+
+    hitwone=hit*wep;
+    hitwone=Math.ceil(hitwone);
+    wonenextta=resta/hitwone;
+    wonenextta=Math.ceil(wonenextta);
+    wonenexttp=restp/hitwone;
+    wonenexttp=Math.ceil(wonenexttp);
+
+    $('#udar').html("<b>"+hit+"<br> "+nextta+"<br> "+nexttp+" <br> 0  </b>");
+    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+" <br> "+wonenexttp+"  <br> cost g/m  </b>");
 });
 
 $('#dmg').on('change', function (e) {
     var optionSelected =$("option:selected", this);
+
     boos=this.value;
     hit=k*ene*boos;
     hit=Math.ceil(hit);
+    nextta=resta/hit;
+    nextta=Math.ceil(nextta);
+    nexttp=restp/hit;
+    nexttp=Math.ceil(nexttp);
+
     hitwone=hit*wep;
     hitwone=Math.ceil(hitwone);
-    $('#udar').html('<b>'+hit+'<br>rank up<br> tp <br>cost g/e</b>');
-
+    wonenextta=resta/hitwone;
+    wonenextta=Math.ceil(wonenextta);
+    wonenexttp=restp/hitwone;
+    wonenexttp=Math.ceil(wonenexttp);
+    $('#udar').html("<b>"+hit+"<br> "+nextta+"<br> "+nexttp+" <br> 0  </b>");
+    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+" <br> "+wonenexttp+"  <br> cost g/m  </b>");
 });
 
 $('#oroz').on('change', function (e) {
@@ -122,5 +161,9 @@ $('#oroz').on('change', function (e) {
     wep=this.value;
     hitwone=hit*wep;
     hitwone=Math.ceil(hitwone);
-    $('#udardve').html('<b>'+hitwone+'<br>rank up<br> tp <br>cost g/e</b>');
+    
+    wonenextta=Math.ceil(wonenextta);
+    wonenexttp=restp/hitwone;
+    wonenexttp=Math.ceil(wonenexttp);
+    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+" <br> "+wonenexttp+"  <br> cost g/m  </b>");
 });
