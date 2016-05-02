@@ -67,6 +67,7 @@ nexttp=Math.ceil(nexttp);
 var hitwone=hit*wep;
 wonenextta=nextta;
 wonenexttp=nexttp;
+var gold=0;
 var htmlStringdiv = "<div id='vse'><br></br> <h3 style='margin-top: 15px;clear: both;'>"+
 "<span>Info Calc</span></h3>"+
 "<div id='infCalc' >"+
@@ -102,9 +103,9 @@ var htmlStringdiv = "<div id='vse'><br></br> <h3 style='margin-top: 15px;clear: 
   "<table border='1'> "+
     "<tbody>"+
       "<tr id=#infoCalctable>"+
-       "<td><b>Influence:   <br> Next TA:  <br> Next TP:  <br>  Cost g/m  </b> <td>"+
-        "<td><span id='udar'> <b>"+hit+"<br> "+nextta+"<br> "+nexttp+" <br> 0  </b> </span></td>"+
-        "<td><span id='udardve'><b>"+hitwone+"<br>  "+nextta+" <br> "+nexttp+"  <br> cost g/m  </b> </span></td>"+
+       "<td><b>Influence:   <br> Next TA: <br>  gold TA <br> Next TP:  <br>  gold TP </b> <td>"+
+        "<td><span id='udar'> <b>"+hit+"<br> "+nextta+"<br> 0 <br> "+nexttp+" <br> 0   </b> </span></td>"+
+        "<td><span id='udardve'><b>"+hitwone+"<br>  "+wonenextta+"<br> cost g/m  <br> "+wonenexttp+"  <br> cost g/m  </b> </span></td>"+
        "</tr>"+
     "</tdbody>"+
   "</table>"+
@@ -119,25 +120,13 @@ $('#infCalc_energy').on('input',function(e){
     ene=$("#infCalc_energy").val();
     hit=k*ene*boos;
 
-    nextta=resta/hit;
-    nextta=Math.ceil(nextta);
-    nexttp=restp/hit;
-    nexttp=Math.ceil(nexttp);
 
-    hitwone=hit*wep;
-    hitwone=Math.ceil(hitwone);
-    wonenextta=resta/hitwone;
-    wonenextta=Math.ceil(wonenextta);
-    wonenexttp=restp/hitwone;
-    wonenexttp=Math.ceil(wonenexttp);
-
-    $('#udar').html("<b>"+hit+"<br> "+nextta+"<br> "+nexttp+" <br> 0  </b>");
-    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+" <br> "+wonenexttp+"  <br> cost g/m  </b>");
+    $('#udar').html("<b>"+hit+"<br> "+nextta+"<br> 0 <br> "+nexttp+" <br> 0  </b>");
+    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+(2.5-(wonenextta*gold))+"  <br> "+wonenexttp+"  <br> "+(5-(wonenexttp*gold))+"  </b>");
 });
 
 $('#dmg').on('change', function (e) {
     var optionSelected =$("option:selected", this);
-
     boos=this.value;
     hit=k*ene*boos;
     hit=Math.ceil(hit);
@@ -152,8 +141,8 @@ $('#dmg').on('change', function (e) {
     wonenextta=Math.ceil(wonenextta);
     wonenexttp=restp/hitwone;
     wonenexttp=Math.ceil(wonenexttp);
-    $('#udar').html("<b>"+hit+"<br> "+nextta+"<br> "+nexttp+" <br> 0  </b>");
-    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+" <br> "+wonenexttp+"  <br> cost g/m  </b>");
+    $('#udar').html("<b>"+hit+"<br> "+nextta+"<br> 0 <br> "+nexttp+" <br> 0  </b>");
+    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+(5-(wonenexttp*gold))+"  </b>");
 });
 
 $('#oroz').on('change', function (e) {
@@ -166,5 +155,10 @@ $('#oroz').on('change', function (e) {
     wonenextta=Math.ceil(wonenextta);
     wonenexttp=restp/hitwone;
     wonenexttp=Math.ceil(wonenexttp);
-    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+" <br> "+wonenexttp+"  <br> cost g/m  </b>");
+    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+(5-(wonenexttp*gold))+"  </b>");
+});
+
+$('#infCalc_gold').on('input',function(e){
+    gold =$("#infCalc_gold").val();
+    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+(5-(wonenexttp*gold))+"  </b>");
 });
