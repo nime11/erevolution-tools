@@ -119,10 +119,10 @@ $("select").css("display","inline");
 $('#infCalc_energy').on('input',function(e){
     ene=$("#infCalc_energy").val();
     hit=k*ene*boos;
-
+    hitwone=hit*wep;
 
     $('#udar').html("<b>"+hit+"<br> "+nextta+"<br> 0 <br> "+nexttp+" <br> 0  </b>");
-    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+(2.5-(wonenextta*gold))+"  <br> "+wonenexttp+"  <br> "+(5-(wonenexttp*gold))+"  </b>");
+    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+((5-(wonenexttp*gold)).toFixed(2))+"  </b>");
 });
 
 $('#dmg').on('change', function (e) {
@@ -142,7 +142,7 @@ $('#dmg').on('change', function (e) {
     wonenexttp=restp/hitwone;
     wonenexttp=Math.ceil(wonenexttp);
     $('#udar').html("<b>"+hit+"<br> "+nextta+"<br> 0 <br> "+nexttp+" <br> 0  </b>");
-    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+(5-(wonenexttp*gold))+"  </b>");
+    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+((5-(wonenexttp*gold)).toFixed(2))+"  </b>");
 });
 
 $('#oroz').on('change', function (e) {
@@ -155,12 +155,12 @@ $('#oroz').on('change', function (e) {
     wonenextta=Math.ceil(wonenextta);
     wonenexttp=restp/hitwone;
     wonenexttp=Math.ceil(wonenexttp);
-    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+(5-(wonenexttp*gold))+"  </b>");
+    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+((5-(wonenexttp*gold)).toFixed(2))+"  </b>");
 });
 
 $('#infCalc_gold').on('input',function(e){
     gold =$("#infCalc_gold").val();
-    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+(5-(wonenexttp*gold))+"  </b>");
+    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+((5-(wonenexttp*gold)).toFixed(2))+"  </b>");
 });
 
   $("td").css("borderColor", "transparent");
