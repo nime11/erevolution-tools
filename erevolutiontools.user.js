@@ -2,7 +2,7 @@
 
 // @name          erevolution tools
 
-// @namespace     https://www.erevollution.com
+// @namespace     https://www.erevollution.coms
 
 // @description  erevolution prof
 
@@ -70,7 +70,7 @@ wonenexttp=nexttp;
 var gold=0;
 var htmlStringdiv = "<div id='vse'><br></br> <h3 style='margin-top: 15px;clear: both;'>"+
 "<span>Info Calc</span></h3>"+
-"<div id='infCalc' >"+
+"<div id='infCalc' class='vs165' >"+
   "<label >energy<input id='infCalc_energy' value='1' type='text'></input></label>"+
   "<label>Damege Booster </label> <select id='dmg'>"+
     "<option value='1'>none</option>"+
@@ -162,3 +162,6 @@ $('#infCalc_gold').on('input',function(e){
     gold =$("#infCalc_gold").val();
     $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+(5-(wonenexttp*gold))+"  </b>");
 });
+
+  $("td").css("borderColor", "transparent");
+  $("td").css("borderWidth", "3px");
