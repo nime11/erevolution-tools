@@ -11,6 +11,103 @@
 // @exclude     https://www.erevollution.com/en/special-items
 
 // ==/UserScript==
+
+
+function wepon(wep,hit,gold,resta,restp,st) {
+    this.st = st;
+
+    this.idstring='#udarec'+st;
+
+    this.wep = wep;
+
+    this.hit =Math.ceil(hit);
+
+    this.gold = gold;
+    this.goldta= (2.5-(nextta*gold)).toFixed(2);
+    this.goldtp= (5-(nexttp*gold)).toFixed(2)
+
+    this.nextta=resta/hit;
+    this.nextta=Math.ceil(this.nextta);
+
+    this.nexttp=restp/hit;
+    this.nexttp=Math.ceil(this.nexttp);
+
+    this.changeWep = function (wep) {
+      this.hit = this.hit/this.wep;
+      this.wep = wep;
+      this.changeHit(this.hit*wep);
+    }
+    this.changeHit = function (hit) {
+      this.hit =Math.ceil(hit);
+
+      this.nextta=resta/hit;
+      this.nextta=Math.ceil(this.nextta);
+
+      this.nexttp=restp/hit;
+      this.nexttp=Math.ceil(this.nexttp);
+    }
+    this.changeGold = function (gold) {
+      this.gold = gold;
+      this.goldta= (2.5-(nextta*gold)).toFixed(2);
+      this.goldtp=(5-(nexttp*gold)).toFixed(2)
+    }
+
+}
+
+
+function spremeniWep(owep,wep,gold){
+  if(wep=="n"){
+    owep.changeGold(gold);
+  }
+  if (gold=="n"){
+    owep.changeWep(wep);
+  }
+
+  $(owep.idstring).html("<b>"+owep.hit+"<br>  "+owep.nextta+"<br> "+owep.goldta+"  <br> "+owep.nexttp+"  <br> "+owep.goldtp+" <br> <select selected='"+owep.wep+"' class='oroz' id='n"+owep.st+"' >"+wepstring+"<br><input class='zlat' id='infCalc_gold"+owep.st+"' "+goldstring+" </b>");
+  jquery();
+}
+
+
+
+
+function udarecEna(sprem){
+    wepon1.changeHit(sprem);
+    $(wepon1.idstring).html("<b>"+wepon1.hit+"<br> "+wepon1.nextta+"<br> 0 <br> "+wepon1.nexttp+" <br> 0 <br> - <br> - </b>");
+    wepon2.changeHit(sprem);
+    spremeniWep(wepon2);
+    wepon3.changeHit(sprem);
+    spremeniWep(wepon3);
+    wepon4.changeHit(sprem);
+    spremeniWep(wepon4);
+    wepon5.changeHit(sprem);
+    spremeniWep(wepon5);
+    wepon6.changeHit(sprem);
+    spremeniWep(wepon6);
+}
+
+function udarecWep(gold,st,wep) {
+  switch(st) {
+      case 2:
+          spremeniWep(wepon2,wep,gold);
+          break;
+      case 3:
+          spremeniWep(wepon3,wep,gold);
+          break;
+      case 4:
+          spremeniWep(wepon4,wep,gold);
+          break;
+      case 5:
+          spremeniWep(wepon5,wep,gold);
+          break;
+      case 6:
+          spremeniWep(wepon6,wep,gold);
+          break;
+      }
+}
+
+
+
+
 var x = document.getElementsByClassName("vs164-2");
 var moc = x[0].innerHTML;
 var car="";
@@ -39,6 +136,7 @@ thisseznam = thisseznam.replace(/[[^]]*]/g, ''); // Remove anything within squar
 list[i]=thisseznam;
 }
 
+var st=0;
 var wep=1;
 var tp= list[0];
 tp= tp.replace(/,/g,'')
@@ -64,10 +162,38 @@ var nextta=resta/hit;
 nextta=Math.ceil(nextta);
 var nexttp=restp/hit;
 nexttp=Math.ceil(nexttp);
-var hitwone=hit*wep;
-wonenextta=nextta;
-wonenexttp=nexttp;
+
 var gold=0;
+var idstring="";
+
+var wepon1=new wepon(wep,hit,gold,resta,restp,1);
+var wepon2=new wepon(wep,hit,gold,resta,restp,2);
+var wepon3=new wepon(wep,hit,gold,resta,restp,3);
+var wepon4=new wepon(wep,hit,gold,resta,restp,4);
+var wepon5=new wepon(wep,hit,gold,resta,restp,5);
+var wepon6=new wepon(wep,hit,gold,resta,restp,6);
+
+var goldstring= "type='text'></input></label>";
+
+var wepstring=  "<option value='1'>none</option>"+
+  "<option value='1.2'>1.2</option>"+
+  "<option value='1.4'>1.4</option>"+
+  "<option value='1.6'>1.6</option>"+
+  "<option value='1.8'>1.8</option>"+
+  "<option value='2'>2</option>"+
+  "<option value='2.2'>2.2</option>"+
+  "<option value='2.4'>2.4</option>"+
+  "<option value='2.6'>2.6</option>"+
+  "<option value='2.8'>2.8</option>"+
+  "<option value='3'>3</option>"+
+  "<option value='3.2'>3.2</option>"+
+  "<option value='3.4'>3.4</option>"+
+  "<option value='3.6'>3.6</option>"+
+  "<option value='3.8'>3.8</option>"+
+  "<option value='4'>4</option>"+
+  "<option value='5'>5</option>"+
+"</select>";
+
 var htmlStringdiv = "<div id='vse'><br></br> <h3 style='margin-top: 15px;clear: both;'>"+
 "<span>Info Calc</span></h3>"+
 "<div id='infCalc' class='vs165' >"+
@@ -80,32 +206,17 @@ var htmlStringdiv = "<div id='vse'><br></br> <h3 style='margin-top: 15px;clear: 
     "<option value='1.4'>1.4</option>"+
     "<option value='1.5'>1.5</option>"+
   "</select>"+
-  "<label> Wep </label> <select id='oroz'>"+
-    "<option value='1'>none</option>"+
-    "<option value='1.2'>1.2</option>"+
-    "<option value='1.4'>1.4</option>"+
-    "<option value='1.6'>1.6</option>"+
-    "<option value='1.8'>1.8</option>"+
-    "<option value='2'>2</option>"+
-    "<option value='2.2'>2.2</option>"+
-    "<option value='2.4'>2.4</option>"+
-    "<option value='2.6'>2.6</option>"+
-    "<option value='2.8'>2.8</option>"+
-    "<option value='3'>3</option>"+
-    "<option value='3.2'>3.2</option>"+
-    "<option value='3.4'>3.4</option>"+
-    "<option value='3.6'>3.6</option>"+
-    "<option value='3.8'>3.8</option>"+
-    "<option value='4'>4</option>"+
-    "<option value='5'>5</option>"+
-  "</select>"+
-"<label >gold/peac<input id='infCalc_gold' value='0' type='text'></input></label>"+
+
   "<table border='1'> "+
     "<tbody>"+
-      "<tr id=#infoCalctable>"+
-       "<td><b>Influence:   <br> Next TA: <br>  gold TA <br> Next TP:  <br>  gold TP </b> <td>"+
-        "<td><span id='udar'> <b>"+hit+"<br> "+nextta+"<br> 0 <br> "+nexttp+" <br> 0   </b> </span></td>"+
-        "<td><span id='udardve'><b>"+hitwone+"<br>  "+wonenextta+"<br> cost g/m  <br> "+wonenexttp+"  <br> cost g/m  </b> </span></td>"+
+      "<tr>"+
+       "<td><b>Influence:   <br> Next TA: <br>  gold TA <br> Next TP:  <br>  gold TP<br> Wep <br> gold/peac </b> <td>"+
+        "<td><span id='udarec1'> <b>"+hit+"<br> "+nextta+"<br> 0 <br> "+nexttp+" <br> 0  <br> - </b> </span></td>"+
+        "<td><span id='udarec2'><b>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m <br> <select class='oroz' id='n2'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold1'"+goldstring+" </b> </span></td>"+
+        "<td><span id='udarec3'><b>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  <br> <select class='oroz' id='n3'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold2'"+goldstring+" </b> </span></td>"+
+        "<td><span id='udarec4'><b>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  <br> <select class='oroz' id='n4'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold3'"+goldstring+" </b> </span></td>"+
+        "<td><span id='udarec5'><b>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  <br> <select class='oroz' id='n5'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold4'"+goldstring+" </b> </span></td>"+
+        "<td><span id='udarec6'><b>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  <br> <select class='oroz' id='n6'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold5'"+goldstring+" </b> </span></td>"+
        "</tr>"+
     "</tdbody>"+
   "</table>"+
@@ -113,55 +224,48 @@ var htmlStringdiv = "<div id='vse'><br></br> <h3 style='margin-top: 15px;clear: 
 "</div>"+
 "<br></br>"+
 "<div>";
-$(htmlStringdiv).insertAfter(".vs165:last");
-$("select").css("display","inline");
 
-$('#infCalc_energy').on('input',function(e){
-    ene=$("#infCalc_energy").val();
-    hit=k*ene*boos;
-    hitwone=hit*wep;
+  $(htmlStringdiv).insertAfter(".vs165:last");
 
-    $('#udar').html("<b>"+hit+"<br> "+nextta+"<br> 0 <br> "+nexttp+" <br> 0  </b>");
-    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+((5-(wonenexttp*gold)).toFixed(2))+"  </b>");
-});
+jquery();
 
-$('#dmg').on('change', function (e) {
-    var optionSelected =$("option:selected", this);
-    boos=this.value;
-    hit=k*ene*boos;
-    hit=Math.ceil(hit);
-    nextta=resta/hit;
-    nextta=Math.ceil(nextta);
-    nexttp=restp/hit;
-    nexttp=Math.ceil(nexttp);
+function jquery(){
 
-    hitwone=hit*wep;
-    hitwone=Math.ceil(hitwone);
-    wonenextta=resta/hitwone;
-    wonenextta=Math.ceil(wonenextta);
-    wonenexttp=restp/hitwone;
-    wonenexttp=Math.ceil(wonenexttp);
-    $('#udar').html("<b>"+hit+"<br> "+nextta+"<br> 0 <br> "+nexttp+" <br> 0  </b>");
-    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+((5-(wonenexttp*gold)).toFixed(2))+"  </b>");
-});
+  $("select").css("display","inline");
+  $(".zlat").css("width", "50px");
 
-$('#oroz').on('change', function (e) {
-    var optionSelected =$("option:selected", this);
-    wep=this.value;
-    hitwone=hit*wep;
-    hitwone=Math.ceil(hitwone);
+  $('#infCalc_energy').on('input',function(e){
+      ene=$("#infCalc_energy").val();
+      hit=k*ene*boos;
+      hitwone=hit*wep;
+      udarecEna(hit);
+  });
 
-    wonenextta=resta/hitwone;
-    wonenextta=Math.ceil(wonenextta);
-    wonenexttp=restp/hitwone;
-    wonenexttp=Math.ceil(wonenexttp);
-    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+((5-(wonenexttp*gold)).toFixed(2))+"  </b>");
-});
 
-$('#infCalc_gold').on('input',function(e){
-    gold =$("#infCalc_gold").val();
-    $('#udardve').html("<b>"+hitwone+"<br>  "+wonenextta+"<br> "+((2.5-(wonenextta*gold)).toFixed(2))+"  <br> "+wonenexttp+"  <br> "+((5-(wonenexttp*gold)).toFixed(2))+"  </b>");
-});
+  $('#dmg').on('change', function (e) {
+      var optionSelected =$("option:selected", this);
+      boos=this.value;
+      hit=k*ene*boos;
+      udarecEna(hit);
+  });
 
-  $("td").css("borderColor", "transparent");
-  $("td").css("borderWidth", "3px");
+  $('.oroz').on('change', function (e) {
+    var oid=$(this).attr('id');
+    st=parseInt(oid[1]);
+    debugger;
+    wep= parseInt($('#n'+st).find(":selected").text());
+    udarecWep("n",st,wep);
+  });
+
+  $('.zlat').on('input',function(e){
+    var gid=$(this).attr('id');
+    st=parseInt(gid[12]);
+    gold =parseInt($("#infCalc_gold"+st).val());
+    debugger;
+    udarecWep(gold,st,"n");
+  });
+
+    $("td").css("borderColor", "transparent");
+    $("td").css("borderWidth", "3px");
+
+}
