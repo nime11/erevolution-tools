@@ -34,6 +34,7 @@ function wepon(wep,hit,gold,resta,restp,st) {
 
     this.changeWep = function (wep) {
       this.hit = this.hit/this.wep;
+      console.log(hit);
       this.wep = wep;
       this.changeHit(this.hit*wep);
     }
@@ -48,8 +49,8 @@ function wepon(wep,hit,gold,resta,restp,st) {
     }
     this.changeGold = function (gold) {
       this.gold = gold;
-      this.goldta= (2.5-(nextta*gold)).toFixed(2);
-      this.goldtp=(5-(nexttp*gold)).toFixed(2)
+      this.goldta= ( (2.5 - (this.nextta*gold)).toFixed(2) );
+      this.goldtp= ( (5 - (this.nexttp*gold)).toFixed(2));
     }
 
 }
@@ -63,8 +64,9 @@ function spremeniWep(owep,wep,gold){
     owep.changeWep(wep);
   }
 
-  $(owep.idstring).html("<b>"+owep.hit+"<br>  "+owep.nextta+"<br> "+owep.goldta+"  <br> "+owep.nexttp+"  <br> "+owep.goldtp+" <br> <select selected='"+owep.wep+"' class='oroz' id='n"+owep.st+"' >"+wepstring+"<br><input class='zlat' id='infCalc_gold"+owep.st+"' "+goldstring+" </b>");
+  $(owep.idstring).html("<b>"+owep.hit+"<br>  "+owep.nextta+"<br> "+owep.goldta+"  <br> "+owep.nexttp+"  <br> "+owep.goldtp);
   jquery();
+
 }
 
 
@@ -120,7 +122,7 @@ for(i=0;i<moc.length;i++)
 }
 
 moc=moc.replace(car+',',car);
-moc = parseInt(moc, 10)
+moc = parseFloat(moc, 10) ;
 
 var razmerje = document.getElementsByClassName("vs165-5");
 var level = document.getElementsByClassName("vs164-6 vs164-13");
@@ -211,12 +213,12 @@ var htmlStringdiv = "<div id='vse'><br></br> <h3 style='margin-top: 15px;clear: 
     "<tbody>"+
       "<tr>"+
        "<td><b>Influence:   <br> Next TA: <br>  gold TA <br> Next TP:  <br>  gold TP<br> Wep <br> gold/peac </b> <td>"+
-        "<td><span id='udarec1'> <b>"+hit+"<br> "+nextta+"<br> 0 <br> "+nexttp+" <br> 0  <br> - </b> </span></td>"+
-        "<td><span id='udarec2'><b>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m <br> <select class='oroz' id='n2'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold1'"+goldstring+" </b> </span></td>"+
-        "<td><span id='udarec3'><b>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  <br> <select class='oroz' id='n3'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold2'"+goldstring+" </b> </span></td>"+
-        "<td><span id='udarec4'><b>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  <br> <select class='oroz' id='n4'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold3'"+goldstring+" </b> </span></td>"+
-        "<td><span id='udarec5'><b>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  <br> <select class='oroz' id='n5'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold4'"+goldstring+" </b> </span></td>"+
-        "<td><span id='udarec6'><b>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  <br> <select class='oroz' id='n6'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold5'"+goldstring+" </b> </span></td>"+
+        "<td> <b> <span id='udarec1'>"+hit+"<br> "+nextta+"<br> 0 <br> "+nexttp+" <br> 0  <br> - <br> 0 </b> </span></td>"+
+        "<td> <b> <span id='udarec2'>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  </span> <br> <select class='oroz' id='n2'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold2'"+goldstring+" </b> </td>"+
+        "<td> <b> <span id='udarec3'>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  </span> <br> <select class='oroz' id='n3'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold3'"+goldstring+" </b> </td>"+
+        "<td> <b> <span id='udarec4'>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  </span> <br> <select class='oroz' id='n4'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold4'"+goldstring+" </b> </td>"+
+        "<td> <b> <span id='udarec5'>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  </span> <br> <select class='oroz' id='n5'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold5'"+goldstring+" </b> </td>"+
+        "<td> <b> <span id='udarec6'>"+hit+"<br>  "+nextta+"<br> cost g/m  <br> "+nexttp+"  <br> cost g/m  </span> <br> <select class='oroz' id='n6'>"+wepstring+" <br> <input class='zlat' id='infCalc_gold6'"+goldstring+" </b> </td>"+
        "</tr>"+
     "</tdbody>"+
   "</table>"+
@@ -225,47 +227,52 @@ var htmlStringdiv = "<div id='vse'><br></br> <h3 style='margin-top: 15px;clear: 
 "<br></br>"+
 "<div>";
 
-  $(htmlStringdiv).insertAfter(".vs165:last");
+    $(htmlStringdiv).insertAfter(".vs165:last");
 
-jquery();
+jquery()
 
 function jquery(){
+  $(document).ready(function(){
+    $("select").css("display","inline");
+    $(".zlat").css("width", "50px");
 
-  $("select").css("display","inline");
-  $(".zlat").css("width", "50px");
+    $('#infCalc_energy').on('input',function(e){
+        ene=$("#infCalc_energy").val();
+        hit=k*ene*boos;
+        hitwone=hit*wep;
+        console.log(hit);
 
-  $('#infCalc_energy').on('input',function(e){
-      ene=$("#infCalc_energy").val();
-      hit=k*ene*boos;
-      hitwone=hit*wep;
-      udarecEna(hit);
+        udarecEna(hit);
+    });
+
+
+    $('#dmg').on('change', function (e) {
+        var optionSelected =$("option:selected", this);
+        boos=this.value;
+        hit=k*ene*boos;
+        udarecEna(hit);
+    });
+
+      $('.oroz').on('change', function (e) {
+      var oid=$(this).attr('id');
+      st=parseFloat(oid[1]);
+      wep = parseFloat($('#n'+st).find(":selected").text());
+      console.log(wep, st);
+
+      udarecWep("n",st,wep);
+    });
+
+    $('.zlat').on('input',function(e){
+      var gid=$(this).attr('id');
+      st=parseFloat(gid[12]);
+
+      gold =parseFloat($("#infCalc_gold"+st).val());
+      console.log(gold, st);
+
+      udarecWep(gold,st,"n");
+    });
+
+      $("td").css("borderColor", "transparent");
+      $("td").css("borderWidth", "3px");
   });
-
-
-  $('#dmg').on('change', function (e) {
-      var optionSelected =$("option:selected", this);
-      boos=this.value;
-      hit=k*ene*boos;
-      udarecEna(hit);
-  });
-
-  $('.oroz').on('change', function (e) {
-    var oid=$(this).attr('id');
-    st=parseInt(oid[1]);
-    debugger;
-    wep= parseInt($('#n'+st).find(":selected").text());
-    udarecWep("n",st,wep);
-  });
-
-  $('.zlat').on('input',function(e){
-    var gid=$(this).attr('id');
-    st=parseInt(gid[12]);
-    gold =parseInt($("#infCalc_gold"+st).val());
-    debugger;
-    udarecWep(gold,st,"n");
-  });
-
-    $("td").css("borderColor", "transparent");
-    $("td").css("borderWidth", "3px");
-
 }
