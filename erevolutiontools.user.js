@@ -12,7 +12,15 @@
 
 // ==/UserScript==
 
+//auto eat
+setInterval(myMethod, 50000);
 
+function myMethod( )
+{
+  document.getElementById("energyButton").click()
+}
+
+//dmg calc prof
 function wepon(wep,hit,gold,resta,restp,st) {
     this.st = st;
 
