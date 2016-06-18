@@ -2,7 +2,7 @@
 
 // @name          erevolution tools
 
-// @namespace     https://www.erevollution.coms
+// @namespace     https://www.erevollution.com
 
 // @description  erevolution prof
 
