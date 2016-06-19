@@ -13,7 +13,7 @@
 // ==/UserScript==
 
 //auto eat
-setInterval(myMethod, 50000);
+setInterval(myMethod, 9720000);
 
 function myMethod( )
 {
