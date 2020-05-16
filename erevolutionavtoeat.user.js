@@ -22,6 +22,7 @@
 
 function myMethod( )
 {
+  console.log(cas);
   document.getElementById("energyButton").click();
 }
 //auto eat
